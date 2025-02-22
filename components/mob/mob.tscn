@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cg1m7pe6v0oww"]
+
+[ext_resource type="Script" path="res://components/mob/mob.gd" id="1_fkqxw"]
+[ext_resource type="Texture2D" uid="uid://bs5bwkk7vsckh" path="res://assets/reso/builder.PNG" id="3_ockl2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4o8qs"]
+
+[node name="Mob" type="CharacterBody2D" groups=["Mob"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_fkqxw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -27)
+texture = ExtResource("3_ockl2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4o8qs")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Mob" load_steps=3 format=3 uid="uid://btm0tg7tuqtqn"]
+
+[ext_resource type="Script" path="res://mobType.gd" id="1_b7axg"]
+[ext_resource type="Texture2D" uid="uid://d4as8njwaiist" path="res://assets/reso/pooch.PNG" id="2_k8tgd"]
+
+[resource]
+script = ExtResource("1_b7axg")
+title = "pooch"
+texture = ExtResource("2_k8tgd")
+health = 0.0
+damage = 5.0

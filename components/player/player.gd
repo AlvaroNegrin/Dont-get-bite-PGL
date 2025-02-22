@@ -1,0 +1,50 @@
+extends CharacterBody2D
+
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedPlayerSprite2D
+
+var ANIMATION_STATES = {
+	"IDLE": "idle",
+	"MOVE": "move",
+	"FIRE": "fire",
+	"DEATH": "die"
+}
+
+var current_animation = ANIMATION_STATES.IDLE
+
+const speed : float = 150
+var health : float = 100:
+	set(value):
+		health = value
+		%Health.value = value
+
+func _ready() -> void:
+	animated_sprite.play(current_animation)
+
+func _physics_process(delta: float) -> void:
+	velocity = Input.get_vector("left", "right", "up", "down") * speed
+	move_and_collide(velocity * delta)
+	
+	if velocity.length() > 0.0:
+		current_animation = ANIMATION_STATES.MOVE
+		animated_sprite.play(ANIMATION_STATES.MOVE)
+	else:
+		current_animation = ANIMATION_STATES.IDLE
+		animated_sprite.play(ANIMATION_STATES.IDLE)
+	
+	if velocity.x > 0: 
+		animated_sprite.flip_h = false 
+
+	elif velocity.x < 0:
+		animated_sprite.flip_h = true
+
+func take_damage(amount):
+	health -= amount
+	print(amount)
+
+func _on_self_damage_body_entered(body: Node2D) -> void:
+	take_damage(body.damage)
+
+
+func _on_timer_timeout() -> void:
+	%Collision.set_deferred("disabled", true)
+	%Collision.set_deferred("disabled", false)
