@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://dhvsq1dyuw8su"]
+[gd_scene load_steps=11 format=4 uid="uid://dhvsq1dyuw8su"]
 
+[ext_resource type="Script" path="res://scenes/test_scene.gd" id="1_7v2d5"]
 [ext_resource type="PackedScene" uid="uid://bo6vxvviap1uk" path="res://components/player/player.tscn" id="1_7xgto"]
 [ext_resource type="Texture2D" uid="uid://dyxe8irf3fkw5" path="res://assets/images/TopDownFantasy-Forest/Tiles/Tileset.png" id="1_wsp4v"]
 [ext_resource type="Texture2D" uid="uid://pru7lhwdcaqf" path="res://assets/images/TopDownFantasy-Forest/Decorations/Decorations.png" id="2_ncru3"]
 [ext_resource type="PackedScene" uid="uid://cvp1c3snngoa6" path="res://scenes/spawner.tscn" id="2_ri1f1"]
+[ext_resource type="AudioStream" uid="uid://gy1s6mmki3dm" path="res://assets/sounds/Dethklok - I Ejaculate Fire (Instrumental).mp3" id="5_mr23y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n80cm"]
 texture = ExtResource("1_wsp4v")
@@ -124,6 +126,7 @@ texture = ExtResource("2_ncru3")
 sources/3 = SubResource("TileSetAtlasSource_qckk0")
 
 [node name="TestScene" type="Node2D"]
+script = ExtResource("1_7v2d5")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 repeat_size = Vector2(672, 384)
@@ -136,8 +139,12 @@ tile_set = SubResource("TileSet_axpk0")
 tile_map_data = PackedByteArray("AAAFAA4AAwAFAAIAAAAKAAUAAwAFAAIAAAAOAA8AAwAFAAIAAAAgABAAAwAFAAIAAAAjAAgAAwAFAAIAAAAeAAkAAwAKAAoAAAAGABIAAwAKAAoAAAADAAQAAwAKAAoAAAASAAMAAwAKAAoAAAAdABMAAwAKAAoAAAAWABQAAwAOAAgAAAAIAAsAAwAOAAgAAAANAAcAAwAOAAgAAAAhAAMAAwAOAAgAAAAaAA0AAwAOAAgAAAAWAA8AAwAKAAYAAAAYAAcAAwAKAAYAAAAMAAwAAwAKAAYAAAANAAIAAwAKAAYAAAALABQAAwAKAAYAAAARABIAAwABAAIAAAAQAA0AAwABAAIAAAAXAAoAAwABAAIAAAARAAgAAwABAAIAAAAdAAIAAwABAAIAAAAjABEAAwABAAIAAAAlAAsAAwABAAIAAAAhABQAAwAOAAAAAAAhAA0AAwAOAAAAAAAbABAAAwAOAAAAAAAVAAwAAwAOAAAAAAAQABEAAwAOAAAAAAAPABUAAwAOAAAAAAAJABAAAwAOAAAAAAAEAAwAAwAOAAAAAAAFAAcAAwAOAAAAAAAFAAQAAwAOAAAAAAAAAAoAAwAOAAAAAAAAAAIAAwAOAAAAAAAJAAIAAwAOAAAAAAAhAAUAAwAOAAAAAAAXAAIAAwAOAAAAAAAmAAMAAwAOAAAAAAAjAAYAAwAOAAAAAAAYAAUAAwAOAAAAAAA=")
 tile_set = SubResource("TileSet_6cxyu")
 
+[node name="Spawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ri1f1")]
+player = NodePath("../Player")
+
 [node name="Player" parent="." instance=ExtResource("1_7xgto")]
 position = Vector2(318, 180)
 
-[node name="Spawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ri1f1")]
-player = NodePath("../Player")
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_mr23y")
+autoplay = true

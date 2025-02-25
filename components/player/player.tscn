@@ -1,7 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://bo6vxvviap1uk"]
+[gd_scene load_steps=45 format=3 uid="uid://bo6vxvviap1uk"]
 
 [ext_resource type="Script" path="res://components/player/player.gd" id="1_egr24"]
 [ext_resource type="Texture2D" uid="uid://8kjw7mus38lu" path="res://assets/sprites/Mobile - Dead Ahead Zombie Warfare - Spec-Ops.png" id="1_ng66o"]
+[ext_resource type="PackedScene" uid="uid://db3svj61o5tdv" path="res://scenes/slot.tscn" id="2_w8wcw"]
+[ext_resource type="Resource" uid="uid://dgde17a4yo1dg" path="res://resources/weapons/basic.tres" id="3_0dv4e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxw04"]
 atlas = ExtResource("1_ng66o")
@@ -275,8 +277,30 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xilqy"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dn0k"]
+bg_color = Color(1, 0, 0.215686, 1)
+
+[sub_resource type="Theme" id="Theme_cp8dp"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_2dn0k")
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_egr24")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Weapons" type="HBoxContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Slot" parent="UI/Weapons" instance=ExtResource("2_w8wcw")]
+layout_mode = 2
+weapon = ExtResource("3_0dv4e")
+
+[node name="Slot2" parent="UI/Weapons" instance=ExtResource("2_w8wcw")]
+layout_mode = 2
+
+[node name="Slot3" parent="UI/Weapons" instance=ExtResource("2_w8wcw")]
+layout_mode = 2
 
 [node name="AnimatedPlayerSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.19209e-07, -24)
@@ -303,6 +327,7 @@ offset_left = -25.0
 offset_top = -54.0
 offset_right = 26.0
 offset_bottom = -48.0
+theme = SubResource("Theme_cp8dp")
 value = 100.0
 show_percentage = false
 

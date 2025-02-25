@@ -7,5 +7,5 @@
 script = ExtResource("1_k0b0l")
 title = "firefighter"
 texture = ExtResource("2_qglr4")
-health = 0.0
+health = 3.0
 damage = 3.0
