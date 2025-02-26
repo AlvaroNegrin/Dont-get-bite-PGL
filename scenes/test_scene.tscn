@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://pru7lhwdcaqf" path="res://assets/images/TopDownFantasy-Forest/Decorations/Decorations.png" id="2_ncru3"]
 [ext_resource type="PackedScene" uid="uid://cvp1c3snngoa6" path="res://scenes/spawner.tscn" id="2_ri1f1"]
 [ext_resource type="AudioStream" uid="uid://gy1s6mmki3dm" path="res://assets/sounds/Dethklok - I Ejaculate Fire (Instrumental).mp3" id="5_mr23y"]
-[ext_resource type="PackedScene" uid="uid://72evy2urpp2x" path="res://scenes/ui.tscn" id="6_fg41g"]
+[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="6_fg41g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n80cm"]
 texture = ExtResource("1_wsp4v")
