@@ -13,7 +13,11 @@ var health : float:
 	set(value):
 		health = value
 		if health <= 0:
-			queue_free()
+			var root = get_tree().root.get_node("TestScene")
+			var spawner = root.get_node("Spawner")  
+			if spawner: 
+				spawner.score += 1 
+			queue_free()  
 
 var elite : bool = false:
 	set(value):
@@ -34,44 +38,50 @@ var type : Mob:
 func _physics_process(delta: float) -> void:
 	check_separation(delta)
 	knockback_update(delta)
-	update_sprite_direction() 
-	
-	
+	update_sprite_direction()
+
+
 func check_separation(_delta):
-	separation = (player_reference.position - position).length()
-	if separation >= 500 and not elite:
+	if is_instance_valid(player_reference):
+		separation = (player_reference.position - position).length()
+		if separation >= 500 and not elite:
+			queue_free()
+		if separation < player_reference.nearest_enemy_distance:
+			player_reference.nearest_enemy = self
+	else:
 		queue_free()
-	if separation < player_reference.nearest_enemy_distance:
-		player_reference.nearest_enemy = self
-		
+
 
 func knockback_update(delta):
-	direction = (player_reference.position -position).normalized() * SPEED
-	knockback = knockback.move_toward(Vector2.ZERO, 1)
-	velocity = direction + knockback 
-	var collider = move_and_collide(velocity * delta)
-	if collider:
-		collider.get_collider().knockback = (collider.get_collider().global_position - 
-		global_position).normalized() * 50
+	if is_instance_valid(player_reference):
+		direction = (player_reference.position - position).normalized() * SPEED
+		knockback = knockback.move_toward(Vector2.ZERO, 1)
+		velocity = direction + knockback
+		var collider = move_and_collide(velocity * delta)
+		if collider:
+			collider.get_collider().knockback = (collider.get_collider().global_position -
+			global_position).normalized() * 50
+	else:
+		return
 
 func update_sprite_direction():
 	if direction.x > 0:
-		mob_sprite.flip_h = false 
+		mob_sprite.flip_h = false
 	elif direction.x < 0:
-		mob_sprite.flip_h = true  
-		
+		mob_sprite.flip_h = true
+
 func damage_popup(amount):
 	var popup = damage_popup_node.instantiate()
 	popup.text = str(amount)
 	popup.position = position + Vector2(-50,-25)
 	get_tree().current_scene.add_child(popup)
-	
+
 func take_damage(amount):
-	
+
 	var tween = get_tree().create_tween()
 	tween.tween_property($Sprite2D, "modulate", Color(3, 0.25, 0.25), 0.2)
 	tween.chain().tween_property($Sprite2D, "modulate", Color(1, 1, 1), 0.2)
 	tween.bind_node(self)
-	
+
 	damage_popup(amount)
 	health -= amount

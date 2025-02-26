@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedPlayerSprite2D
 
+signal player_died
+
 var ANIMATION_STATES = {
 	"IDLE": "idle",
 	"MOVE": "move",
@@ -16,14 +18,20 @@ var health : float = 100:
 	set(value):
 		health = value
 		%Health.value = value
+		if (health <= 0):
+			die();
 
 var nearest_enemy : CharacterBody2D
 var nearest_enemy_distance : float = INF
+var is_dead : bool = false;
 
 func _ready() -> void:
 	animated_sprite.play(current_animation)
 
 func _physics_process(delta: float) -> void:
+	if (is_dead):
+		return
+	
 	if is_instance_valid(nearest_enemy):
 		nearest_enemy_distance = nearest_enemy.separation
 		print(nearest_enemy.name)
@@ -47,8 +55,18 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true
 
 func take_damage(amount):
+	if (amount <= 0 or is_dead):
+		return;
+		
 	health -= amount
 	print(amount)
+
+func die():
+	is_dead = true;
+	animated_sprite.play(ANIMATION_STATES.DEATH)
+	set_physics_process(false);
+	emit_signal("player_died")
+	queue_free()
 
 func _on_self_damage_body_entered(body: Node2D) -> void:
 	take_damage(body.damage)
