@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SingleShot" load_steps=4 format=3 uid="uid://dgde17a4yo1dg"]
+
+[ext_resource type="PackedScene" uid="uid://cjpj33cdi4o06" path="res://scenes/projectile.tscn" id="1_q4300"]
+[ext_resource type="Script" path="res://scenes/SingleShot.gd" id="2_oi7k7"]
+[ext_resource type="Texture2D" uid="uid://cax0pp0dif1m7" path="res://assets/reso/basic.PNG" id="3_8lg7q"]
+
+[resource]
+script = ExtResource("2_oi7k7")
+title = ""
+texture = ExtResource("3_8lg7q")
+damage = 1.0
+cooldown = 0.2
+speed = 400.0
+projectile_node = ExtResource("1_q4300")

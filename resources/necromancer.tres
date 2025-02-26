@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Mob" load_steps=3 format=3 uid="uid://by4iueioe6ful"]
+
+[ext_resource type="Script" path="res://mobType.gd" id="1_0yur0"]
+[ext_resource type="Texture2D" uid="uid://641d0c86cf4c" path="res://assets/reso/necromancer.PNG" id="2_kvc0m"]
+
+[resource]
+script = ExtResource("1_0yur0")
+title = "necromancer"
+texture = ExtResource("2_kvc0m")
+health = 3.0
+damage = 9.0

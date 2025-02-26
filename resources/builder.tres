@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Mob" load_steps=3 format=3 uid="uid://dv6k2o5xet76x"]
+
+[ext_resource type="Script" path="res://mobType.gd" id="1_lsm2g"]
+[ext_resource type="Texture2D" uid="uid://bs5bwkk7vsckh" path="res://assets/reso/builder.PNG" id="2_aplr4"]
+
+[resource]
+script = ExtResource("1_lsm2g")
+title = "Builder"
+texture = ExtResource("2_aplr4")
+health = 3.0
+damage = 1.0

@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://72evy2urpp2x"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_pwc8x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lggwx"]
+font_size = 30
+font_color = Color(1, 0.27, 0.27, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_pwc8x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GameOverPanel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxPanel" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="GameOverPanel/VBoxPanel"]
+layout_mode = 2
+text = "estas MUERTO CADAVER
+"
+label_settings = SubResource("LabelSettings_lggwx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreDisplay" type="Label" parent="GameOverPanel/VBoxPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeDisplay" type="Label" parent="GameOverPanel/VBoxPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="GameOverPanel/VBoxPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Return to Menu"

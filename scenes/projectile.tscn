@@ -1,0 +1,89 @@
+[gd_scene load_steps=12 format=3 uid="uid://bg182lefa3ij5"]
+
+[ext_resource type="Script" path="res://scenes/projectile.gd" id="1_wmjwj"]
+[ext_resource type="Texture2D" uid="uid://rwh13tdq8tj3" path="res://assets/sprites/All_Fire_Bullet_Pixel_16x16_00.png" id="2_wmoc6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppqfq"]
+atlas = ExtResource("2_wmoc6")
+region = Rect2(256, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3f5x"]
+atlas = ExtResource("2_wmoc6")
+region = Rect2(272, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cynxa"]
+atlas = ExtResource("2_wmoc6")
+region = Rect2(288, 144, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k12q5"]
+atlas = ExtResource("2_wmoc6")
+region = Rect2(304, 144, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_puhiy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppqfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3f5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cynxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k12q5")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fraq6"]
+size = Vector2(20, 5)
+
+[sub_resource type="Curve" id="Curve_ufvmw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yehpd"]
+curve = SubResource("Curve_ufvmw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8rir8"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_yehpd")
+turbulence_enabled = true
+turbulence_influence_max = 0.282
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wmjwj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_puhiy")
+animation = &"shot"
+frame = 2
+frame_progress = 0.210786
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fraq6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_8rir8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

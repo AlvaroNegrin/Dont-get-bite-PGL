@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://df46ahnhrxgb3"
+path="res://.godot/imported/NEW ORDER.mp3-1887e8049dbd47c839d55ae92e599cbb.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/NEW ORDER.mp3"
+dest_files=["res://.godot/imported/NEW ORDER.mp3-1887e8049dbd47c839d55ae92e599cbb.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

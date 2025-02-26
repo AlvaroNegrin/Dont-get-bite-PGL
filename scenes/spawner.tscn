@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvp1c3snngoa6"]
+
+[ext_resource type="Script" path="res://scenes/spawner.gd" id="1_si0vi"]
+[ext_resource type="PackedScene" uid="uid://cg1m7pe6v0oww" path="res://components/mob/mob.tscn" id="2_avmmp"]
+[ext_resource type="Script" path="res://mobType.gd" id="3_bqrfv"]
+[ext_resource type="Resource" uid="uid://dv6k2o5xet76x" path="res://resources/builder.tres" id="4_vaq2i"]
+[ext_resource type="Resource" uid="uid://b8l1aju2e0sms" path="res://resources/firefighter.tres" id="5_tas44"]
+[ext_resource type="Resource" uid="uid://btm0tg7tuqtqn" path="res://resources/pooch.tres" id="6_g8ae4"]
+[ext_resource type="Resource" uid="uid://dwp4ajgcf528u" path="res://resources/offal.tres" id="7_tux0w"]
+[ext_resource type="Resource" uid="uid://by4iueioe6ful" path="res://resources/necromancer.tres" id="8_8xw67"]
+
+[sub_resource type="GDScript" id="GDScript_cv2p2"]
+script/source = "extends CanvasLayer
+
+@onready var score_label : Label = $VBoxContainer/ScoreLabel # Use absolute path or relative path
+
+func update_score_label():
+	score_label.text = \"Score: \" + str(get_node(\"/root/TestScene/Spawner\").score)
+"
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_si0vi")
+mob = ExtResource("2_avmmp")
+mob_types = Array[ExtResource("3_bqrfv")]([ExtResource("4_vaq2i"), ExtResource("5_tas44"), ExtResource("6_g8ae4"), ExtResource("7_tux0w"), ExtResource("8_8xw67")])
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_cv2p2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="Minute" type="Label" parent="UI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="Label2" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+text = ":
+"
+
+[node name="Second" type="Label" parent="UI/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00"
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Pattern" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="Elite" type="Timer" parent="."]
+wait_time = 9.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Pattern" to="." method="_on_pattern_timeout"]
+[connection signal="timeout" from="Elite" to="." method="_on_elite_timeout"]

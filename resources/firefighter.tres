@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Mob" load_steps=3 format=3 uid="uid://b8l1aju2e0sms"]
+
+[ext_resource type="Script" path="res://mobType.gd" id="1_k0b0l"]
+[ext_resource type="Texture2D" uid="uid://72bgr6hde6l8" path="res://assets/reso/firefighter.PNG" id="2_qglr4"]
+
+[resource]
+script = ExtResource("1_k0b0l")
+title = "firefighter"
+texture = ExtResource("2_qglr4")
+health = 3.0
+damage = 3.0
