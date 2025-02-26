@@ -18,8 +18,8 @@ var minute : int:
 var second : int:
 	set(value):
 		second = value
-		if second >= 10:
-			second -= 10
+		if second >= 60:
+			second -= 60
 			minute += 1
 		%Second.text = str(second).lpad(2, '0')
 
@@ -61,11 +61,10 @@ func amount(number : int = 1):
 
 func _on_timer_timeout() -> void:
 	second += 1
-	amount(second % 10)
-
+	amount(second % 5)
 
 func _on_pattern_timeout() -> void:
-	for i in range(75):
+	for i in range(38):
 		spawn(get_ramdon_position())
 
 
