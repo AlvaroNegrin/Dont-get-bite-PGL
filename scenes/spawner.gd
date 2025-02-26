@@ -3,6 +3,8 @@ extends Node2D
 @export var player : CharacterBody2D
 @export var mob : PackedScene
 
+signal score_changed(score) 
+
 var distance : float = 400
 var can_spawn : bool = true
 
@@ -12,7 +14,7 @@ var minute : int:
 	set(value):
 		minute = value
 		%Minute.text = str(value)
-		
+
 var second : int:
 	set(value):
 		second = value
@@ -20,7 +22,12 @@ var second : int:
 			second -= 10
 			minute += 1
 		%Second.text = str(second).lpad(2, '0')
-		
+
+var score : int = 0 :
+	set(value):
+		score = value
+		emit_signal("score_changed", score)  
+
 func _physics_process(_delta: float) -> void:
 	if get_tree().get_node_count_in_group("Mob") < 700:
 		can_spawn = true
@@ -35,18 +42,21 @@ func spawn(pos : Vector2, elite : bool = false):
 	
 	mob_instance.type = mob_types[min(minute, mob_types.size() - 1)]
 	mob_instance.position = pos
-	mob_instance.player_reference = player
+	if is_instance_valid(player):
+		mob_instance.player_reference = player 
 	mob_instance.elite = elite
 	
 	get_tree().current_scene.add_child(mob_instance)
-	
+
 func get_ramdon_position() -> Vector2:
-	return player.position + distance * Vector2.RIGHT.rotated(randf_range(0, 2 * PI))
+	if is_instance_valid(player):
+		return player.position + distance * Vector2.RIGHT.rotated(randf_range(0, 2 * PI))
+	else:
+		return Vector2(10000, 10000)
 
 func amount(number : int = 1):
 	for i in range(number):
 		spawn(get_ramdon_position())
-	
 
 
 func _on_timer_timeout() -> void:
